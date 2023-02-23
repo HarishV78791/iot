@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title_here %}
+<title>BLDC MOTOR | Control BLDC motor</title>
+{% endblock title_here %}
+
+{% block main_content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col s12 l8 offset-l2">
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- {{form.as_p}} -->
+                    <p class="range-field">
+                        <span>speed:</span> <span id="demo"></span>
+                        <input type="range" value="900" name="speed" required id="id_speed" min="900" max="2000" />
+                    </p>
+
+                    <button class="btn amber darken-3 right" type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col s12 l12 center ">
+                <div id="graph_container" style="width: 85%;">
+                    <canvas id="speed-chart" style="min-height: 400px;" data-url="{% url 'node:plot_graph' %}"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var slider = document.getElementById("id_speed");
+    var output = document.getElementById("demo");
+    output.innerHTML = (((slider.value - 900) / 1100) * 100).toFixed(2) + ' %'; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output.innerHTML = (((this.value - 900) / 1100) * 100).toFixed(2) + ' %';
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+
+    $(function plot_data() {
+
+        var $SpeedChart = $("#speed-chart");
+        $.ajax({
+            url: $SpeedChart.data("url"),
+
+            success: function (data) {
+                console.log("inside ajax"),
+                    console.log(data);
+                var ctx = $SpeedChart[0].getContext("2d");
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.date,
+                        datasets: [{
+                            label: 'ESC',
+                            backgroundColor: 'blue',
+                            data: data.speed,
+                            fill:false
+                        }]
+                    },
+                    options: {
+                        animation:false,
+                        fill:false,
+                        responsive: true,
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'BLDC Motor Chart'
+                        }
+                    }
+                });
+                setTimeout(() => {
+                    plot_data();  
+                }, 8000);
+                // setInterval(() => {
+                //     plot_data();    
+                // }, 8000);
+
+            },
+            error:function(e){
+                console.log(e);
+                plot_data();
+            }
+        });
+    });
+
+</script>
+
+{% endblock main_content %}

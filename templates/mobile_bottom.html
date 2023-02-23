@@ -1,0 +1,33 @@
+<!-- Mobile sticky bottom tab -->
+<div class="row mobile-bottom hide-on-med-and-up blue darken-2" style="z-index: 500;">
+    <div class="col s4">
+        {% if user.is_authenticated %}
+        <a href="{% url 'node:project' %}"  class="pad1 tooltipped" data-position="top" data-tooltip="Register">
+            <i class="small material-icons  white-text ">library_add</i>
+        </a>
+        {% else %}
+        <a href="{% url 'node:register' %}"  class="pad1 tooltipped" data-position="top" data-tooltip="Register">
+            <i class="small material-icons  white-text ">account_circle</i>
+        </a>
+        {% endif %}
+    </div>
+    <div class="col s4">
+        {% if user.is_authenticated %}
+        <a href="{% url 'node:logout' %}" class="pad1 tooltipped" data-position="top" data-tooltip="Courses">
+            <i class="small material-icons white-text ">close</i>
+        </a>
+        {% else %}
+        <a href="{% url 'node:login' %}"  class="pad1 tooltipped" data-position="top" data-tooltip="Register">
+            <i class="small material-icons  white-text ">exit_to_app</i>
+        </a>
+        {% endif %}
+    </div>
+    <div class="col s4">
+        <a href="{% url 'node:home' %}"
+          class="pad1 tooltipped" data-position="top" data-tooltip="Navigate">
+            <i class="small material-icons white-text ">home</i>
+        </a>
+    </div>
+
+</div>
+<!--End of Mobile sticky bottom tab -->

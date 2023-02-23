@@ -1,0 +1,113 @@
+{% load static %}
+{% url 'node:home' as home %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+    <title>IOT Platform | GPTI</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        h1,
+        h2,
+        h4,
+        h3
+        {
+            font-family: 'Dancing Script' !important;
+        }
+
+        .mobile-bottom {
+            position: fixed;
+            bottom: 0px;
+            padding-top: 10px;
+            padding: auto;
+            height: 50px;
+            margin: 0px;
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar-fixed ">
+        <nav class="blue darken-3" role="navigation">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="{{home}}" class="brand-logo logo"><span class="hide-on-small-only1">IOT</span> </a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i
+                            class="material-icons white-text text-darken-1">more_vert</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{{home}}">Home</a></li>
+
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'node:project' %}">Project</a></li>
+                        <li><a href="{% url 'node:logout' %}">Logout</a></li>
+                        <li><a href="{% url 'node:change_password' %}">Change Password</a></li>
+                        {% else %}
+                        <li><a href="{% url 'node:login' %}">Login</a></li>
+                        <li><a href="{% url 'node:register' %}">New User</a></li>
+                        {% endif %}
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <ul class="sidenav blue darken-4" id="mobile-demo">
+        <li><a href="{{home}}" class="white-text">Home</a></li>
+        
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'node:project' %}">Project</a></li>
+        <li><a class="white-text" href="{% url 'node:logout' %}">Logout</a></li>
+        <li><a href="{% url 'node:change_password' %}">Change Password</a></li>
+        {% else %}
+        <li><a class="white-text" href="{% url 'node:login' %}">Login</a></li>
+        <li><a class="white-text" href="{% url 'node:register' %}">New User</a></li>
+        {% endif %}
+
+    </ul>
+
+    {% block main_content %}
+
+    {% endblock main_content %}
+
+
+
+    <!-- Footer Section -->
+    <footer class="page-footer footer-mobile blue darken-4">
+
+        <div class="footer-copyright ">
+            <div class="container amber-text"> <b>
+                    © 2022 Copyright VI Semester Group</b>
+            </div>
+        </div>
+        <div class="row hide-on-med-and-up " style="height: 50px;"></div>
+    </footer>
+    <!-- End of Footer Section -->
+
+    {% include "mobile_bottom.html" %}
+
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script src="{% static 'js/init.js' %}"></script>
+    <script>
+        {% for message in messages %}
+        M.toast({ html: '{{message}}', inDuration: 500, outDuration: 500, displayLength: 3500, classes: 'rounded' })
+        {% endfor %}
+    </script>
+
+</body>
+
+</html>

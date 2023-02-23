@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title_here %}
+<title>BLDC MOTOR | Control BLDC motor</title>
+{% endblock title_here %}
+
+{% block main_content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 ">
+                <h2 class="center">Data received from Micro Controller</h2>
+
+                <table class="striped centered">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>BLDC</th>
+                            <th>Time</th>
+                            <th>SPEED</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for  obj in page_obj %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{obj.bldc}}</td>
+                            <td>{{obj.date|timesince}} ago</td>
+                            <td>{{obj.speed|add:"-900"}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}

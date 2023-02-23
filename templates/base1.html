@@ -1,0 +1,117 @@
+{% load static %}
+{% url 'node:home' as home %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'images/logo_icon.png' %}" type="image/x-icon">
+    <!-- css files -->
+    <!-- <link rel="stylesheet" href="css/materialize.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Material icons link -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/materialize_icon.css">
+    <link rel="stylesheet" href="css/font_awesome/all.min.css"> -->
+
+    {% block title_here %}
+    {% endblock title_here %}
+
+
+
+</head>
+
+<body >
+    <!-- Start of navigation bar -->
+    <div class="navbar-fixed blue">
+        <nav class="blue">
+            <div class="nav-wrapper">
+                <a href="{{home}}" class="brand-logo logo"><img src="{% static "images/logo.png" %}"
+                        alt="BLDC" style="height: 80px!important;"><span class="hide-on-small-only1">BLDC</span> </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i
+                        class="material-icons amber-text text-darken-1">more_vert</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{home}}">Home</a></li>
+                    <li><a href="{% url 'node:to_mc' %}">Write</a></li>
+                    <li><a href="{% url 'node:from_mc_show' %}">From MC</a></li>
+                    <li><a href="{% url 'node:to_mc_show' %}">To MC</a></li>
+                    <li><a href="{% url 'node:login' %}">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- Start of Mobile Navigation links -->
+    <ul class="sidenav pink lighten-1" id="mobile-demo">
+        <li><a href="{% url 'node:home' %}">Home</a></li>
+        <li><a href="#!">About</a></li>
+        <li><a href="#">Notification</a></li>
+        <li><a href="#">Article</a></li>
+
+    </ul>
+    <!-- End of mobile navigation links -->
+    <!-- End of Navigation Bar -->
+
+    <!-- <div class="container">
+        <img src="{% static 'images/logo.png' %}" alt="" style="width:100vmin;">
+    </div> -->
+
+    {% block main_content %}
+
+    {% endblock main_content %}
+
+    <!-- Footer Section -->
+    <footer class="page-footer footer-mobile blue darken-1">
+
+        <div class="footer-copyright ">
+            <div class="container amber-text"> <b>
+                    © 2020 Copyright VI Semester Group</b>
+                <a class="grey-text text-lighten-4 right" href="#!">Designed by <span class="amber-text"><b>Skill
+                            Disk</b> </span> </a>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer Section -->
+
+
+    <!-- Mobile sticky bottom tab -->
+    <div class="row mobile-bottom hide-on-med-and-up " style="z-index: 500;">
+        <div class="col s3">
+            <a href="#" class="p-1"><i class="small material-icons white-text">notifications</i></a>
+        </div>
+        <div class="col s3">
+            <a href="#" class="p-1"><i class="small material-icons white-text ">ballot</i></a>
+        </div>
+        <div class="col s3">
+            <a href="#!" class="p-1"><i class="small material-icons white-text ">my_location</i></a>
+        </div>
+        <div class="col s3">
+            <a href="#modal1" class="p-1 modal-trigger "><i class="small material-icons white-text ">add_comment</i></a>
+        </div>
+    </div>
+    <!--End of Mobile sticky bottom tab -->
+
+    <!-- java script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="js/index.js"></script> -->
+    <script src="{% static "js/index1.js" %}"></script>
+    <script>
+        {% for message in messages %}
+        M.toast({ html: '{{message}}', inDuration: 500, outDuration: 500, displayLength: 3500, classes: 'rounded' })
+        {% endfor %}
+
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
+
+    </script>
+
+</body>
+
+</html>

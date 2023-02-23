@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title_here %}
+<title>Projects | IOT Platform</title>
+{% endblock title_here %}
+
+{% block main_content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 ">
+                <h2 class="center">Projects</h2>
+                <h4><a href="{% url 'node:new_project' %}" class="btn btn-large">New Project</a></h4>
+
+                <table class="striped centered">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>ID</th>
+                            <th>Project</th>
+                            <th>View</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% if projects %}
+                        {% for  project in projects %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{project.id}}</td>
+                            <td>{{project.name}}</td>
+                            <td><a href="{% url 'node:view_project' project.id %}" class="blue-text">view</a></td>
+                            <td><a href="{% url 'node:update_project' project.id %}" class="green-text">edit</a></td>
+                            <td><a href="{% url 'node:confirm_delete_project' project.id %}" class="red-text">delete</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="red-text">No Projects Available</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}

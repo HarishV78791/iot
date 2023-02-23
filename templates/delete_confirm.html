@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title_here %}
+<title>Delete Project | IOT Platform </title>
+{% endblock title_here %}
+
+
+<!-- Registration Form -->
+{% block main_content %}
+
+<div class="row mt-3">
+    <div class="col-md-12 text-center mt-5">
+        <h4>Do you wana <span style="color: red;">DELETE</span> the <span style="color: orangered;">{{project.name|upper}}</span> Project ?</h4>
+    </div>
+    <div class="row">
+        <div class="col l2 m6">
+            <a href="{% url 'node:delete_project' project.pk %}" class="red btn btn-danger ">Delete</a>
+        </div>
+        <div class="col l2 m6">
+            <a href="{% url 'node:project' %}" class=" btn btn-primary ">Cancel</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+{% endblock main_content %}

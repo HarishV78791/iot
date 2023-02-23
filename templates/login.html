@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+    {% block title_here %}
+    <title>IOT Platform | Login</title>
+    {% endblock title_here %}
+
+    {% block main_content %}
+    <div class="section" >
+        <div class="container">
+            <div class="row " >
+                <div class="col s12 l8 offset-l2 z-depth-4 " style="border-radius: 3rem; padding: 3rem;">
+                    <h2 class="center" style=" font-family:monospace;"> Login</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button class="btn amber darken-3 right" type="submit">Submit</button>
+                        <br>
+                        <br>
+                    </form>
+                    <p>Donot have an account. <a href="{% url 'node:register' %}">Register here</a></p>
+                    <p>Forgot your password? <a href="{% url 'node:password_reset' %}">Reset Password</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock main_content %}
